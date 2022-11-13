@@ -5,9 +5,9 @@ const cors = require('cors');
 const fs = require('fs/promises')
 
 const attachData = async () => {
-    const privateKey = await fs.readFile('./keys/server.txt');
+    const privateKey = await fs.readFile('./keys/server.key');
     app.set('privateKey', privateKey);
-    const publicKey = await fs.readFile('./keys/server.key.txt');
+    const publicKey = await fs.readFile('./keys/server.key.pub');
     app.set('publicKey', publicKey);
     app.set('passphrase', 'example');
 }
