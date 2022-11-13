@@ -1,34 +1,43 @@
 import * as React from 'react';
+import styled from "@emotion/styled";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
-const navItems = ['Login'];
+import { token } from "../store/atom";
+
+const StyledToolbar = styled(Toolbar)`
+  display:flex;
+  justify-content: space-between;
+`;
 
 function DrawerAppBar() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [tokenValue, setToken] = useRecoilState(token);
+
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav">
-        <Toolbar>
+        <StyledToolbar>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
             Home
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }} onClick={() => navigate(`/${item.toLowerCase()}`)} >
-                {item}
-              </Button>
-            ))}
+          <Box>
+            <Button sx={{ color: '#fff' }} onClick={() => {
+              setToken("")
+              navigate(`/login`)}
+            }>
+              {tokenValue ? "LOGGED OUT" : "LOGIN"}
+            </Button>
           </Box>
-        </Toolbar>
+        </StyledToolbar>
       </AppBar>
     </Box>
   );
