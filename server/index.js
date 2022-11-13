@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const fs = require('fs').promises
+const fs = require('fs/promises')
 
-const privateKey = fs.readFile('./keys/server.key');
+const privateKey = await fs.readFile('./keys/server.key');
 app.set('privateKey', privateKey);
-const publicKey = fs.readFile('./keys/server.key.pub');
+const publicKey = await fs.readFile('./keys/server.key.pub');
 app.set('publicKey', publicKey);
 app.set('passphrase', 'example');
 
